@@ -1,0 +1,274 @@
+﻿@{
+    ViewBag.Title = "addvisitor";
+    Layout = "~/Views/sgLayoutPage1.cshtml";
+}
+
+<style>
+    body {
+        background-color: lightgray;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+
+    .bg-page {
+        background-color: rgba(0, 0, 0, 0.6); /* Adjust the background color opacity */
+    }
+</style>
+
+<h2>addvisitor</h2>
+
+<div class="col-md-8 order-md-1 validform2">
+
+    <form action="/sg/addvisitor" method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="firstName">First name</label>
+                <input type="text" class="form-control" id="FirstName" placeholder="" name="fn_name" onkeydown="return /[a-zA-Z]/i.test(event.key)" required="">
+                <div class="invalid-feedback">
+                    Valid first name is required.
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="lastName">Last name</label>
+                <input type="text" class="form-control" id="lastName" placeholder="" name="ln_name" onkeydown="return /[a-zA-Z]/i.test(event.key)" required="">
+                <div class="invalid-feedback">
+                    Valid last name is required.
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="email">
+                Email
+                <span class="text-muted"></span>
+            </label>
+            <input type="email" class="form-control" id="email" placeholder="you@example.com" name="v_email" required="">
+            <div class="invalid-feedback">
+                Please enter a valid email addres.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="Phone No">
+                Phone No
+                <span class="text-muted"></span>
+            </label>
+            <input type="tel" class="form-control" id="phone No" placeholder="Enter Number" required="" name="v_phno" pattern="[6-9]{1}[0-9]{9}"
+                   onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                   title="Phone number with 6-9 and remaing 9 digit with 0-9" maxlength="10">
+        </div>
+
+        <div class="mb-3">
+            <label for="Date">
+                Date
+                <span class="text-muted"></span>
+            </label>
+            <input type="date" class="form-control" id="dateinput" placeholder="Date" required="" name="v_date">
+        </div>
+
+        <div class="mb-3">
+            <label for="In-Time">
+                IN-Time
+                <span class="text-muted"></span>
+            </label>
+            <input type="time" class="form-control" id="time" placeholder="In Time" required="" name="v_intime">
+        </div>
+
+        <div class="mb-3">
+            <label for="address">Visitor Address</label>
+            <textarea class="form-control" name="v_address" placeholder="Enter Address.." required=""></textarea>
+        </div>
+
+
+        @*<div class="mb-3">
+                <label for="a">Visitor Photo</label>
+                <input type="file" class="form-control" id="formfile" name="v_photo">
+            </div>*@
+
+        <div class="mb-3">
+            @using System.Data;
+
+            @using System.Data.SqlClient;
+            @using System.Configuration;
+            @{
+                SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\user\OneDrive\Desktop\Project\WebApplication1\WebApplication1\App_Data\Database.mdf;Integrated Security=True");
+                SqlCommand cmd = new SqlCommand("select * from staff ", con);
+                SqlDataAdapter da = new SqlDataAdapter();
+                da.SelectCommand = cmd;
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+            }
+
+            <label for="a">staff name</label>
+            <select name="v_stf_id" class="form-control" id="v_stf_id">
+                @for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                {
+                    <option value="@Convert.ToInt32(ds.Tables[0].Rows[i]["stf_id"].ToString()) ">@ds.Tables[0].Rows[i]["fn_name"].ToString()</option>
+                }
+            </select>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label "></label>
+            <div class="col-sm-10">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="btnViewVideo">Add Photo</button>
+            </div>
+        </div>
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Modal Header</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <table align="center" border="1" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <th align="center"><u>Live Camera</u></th>
+                                <th align="center"><u>Captured Picture</u></th>
+                            </tr>
+                            <tr>
+                                <td><div id="webcam"></div></td>
+                                <td><img id="imgCapture" /></td>
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                    <button type="button" id="btnCapture" class="btn btn-primary">Capture</button>
+                                </td>
+                                <td align="center">
+                                    <button type="button" id="btnUpload" class="btn btn-success" disabled="disabled">Save</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+</form>
+</div>
+
+@if (TempData["msg1"] != null)
+{
+    <script type="text/javascript">
+        alert('@TempData["msg1"]');
+        window.location.href = "@Url.Action("addvisitor","sg")";
+
+    </script>
+
+
+
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="~/Webcam_Plugin/webcam.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var modal = $("#myModal");
+        $("#btnViewVideo").click(function () {
+
+            if (validateInputs()) {
+            Webcam.set({
+                width: 320,
+                height: 240,
+                image_format: 'jpeg',
+                jpeg_quality: 90
+            });
+            Webcam.attach('#webcam');
+            } else {
+                alert('Please fill out all required fields before opening the modal.');
+                modal.modal('hide');
+            }
+        });
+
+        function validateInputs() {
+
+            var fn_name = $("input[name='fn_name']").val();
+            var ln_name = $("input[name='ln_name']").val();
+            var v_email= $("input[name='v_email']").val();
+            var v_address = $("textarea[name='v_address']").val();
+            var v_phno = $("input[name='v_phno']").val();
+            var v_stf_id = $("#v_stf_id").val();
+            //var reason = $("input[name='reason']").val();
+            var v_intime = $("input[name='v_intime']").val();
+            //var departureTime = $("input[name='departure_time']").val();
+            var v_date = $("input[name='v_date']").val();
+
+
+            if (fn_name === '' || ln_name === '' || v_email === '' || v_address === '' ||
+                v_stf_id === 'Select--' || v_phno === '' || v_intime === '' || v_date === '') {
+
+             //   document.getElementById("btnViewVideo").disabled = false;
+                return false;
+            }
+           // document.getElementById("btnViewVideo").disabled = true;
+            return true;
+        }
+
+        $("#btnCapture").click(function () {
+
+            Webcam.snap(function (data_uri) {
+                $("#imgCapture")[0].src = data_uri;
+                $("#btnUpload").removeAttr("disabled");
+            });
+        });
+
+
+
+
+        $("#btnUpload").click(function () {
+
+            $.post("@Url.Action("SaveCapture", "sg")",
+                {
+                    imageData: $("#imgCapture")[0].src,
+                    fn_name: $("input[name='fn_name']").val(),
+                    ln_name: $("input[name='ln_name']").val(),
+                    v_email: $("input[name='v_email']").val(),
+                    v_phno: $("input[name='v_phno']").val(),
+                    v_date: $("input[name='v_date']").val(),
+                    v_intime: $("input[name='v_intime']").val(),
+                    v_address: $("textarea[name='v_address']").val(),
+                    v_stf_id: $("#v_stf_id").val(),
+                    //reason: $("input[name='reason']").val(),
+                    //arrivalTime: $("input[name='arrival_time']").val(),
+                    //departureTime: $("input[name='departure_time']").val(),
+                    //date: $("input[name='date']").val()
+
+                },
+                function (data) {
+                    if (data.success) {
+                        window.location.href = data.redirectUrl;
+                    }
+                    else {
+                        $("#Status").html('<font color = "Red">Subject already Alloted. Try Another.</font>');
+                    }
+                }, "json");
+
+
+
+
+
+
+
+
+        });
+    });
+    var today = new Date().toISOString().split('T')[0];
+    document.getElementById('dateinput').setAttribute('min', today);
+
+    var today = new Date().toISOString().split('T')[0];
+    document.getElementById('dateinput').setAttribute('max', today);
+
+</script>
+
+
+

@@ -1,0 +1,107 @@
+﻿@model WebApplication1.Models.admin
+
+@{
+    ViewBag.Title = "EditProfile";
+    Layout = "~/Views/AdminLayout.cshtml";
+}
+
+<h2>EditProfile</h2>
+<script type="text/javascript" src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js'></script>
+
+<section class="tables-section">
+    <!-- table1 -->
+    <div class="outer-w3-agile mt-3">
+        <h4 class="tittle-w3-agileits mb-4">Edit Profile</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    @*<th scope="col">Last</th>*@
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone_no</th>
+                    @*<th scope="col">Address</th>*@
+
+                </tr>
+            </thead>
+            <tbody>
+                @{ int count = 1;}
+                @foreach (var item in Model.admin_details)
+                {
+                    <tr>
+                        <td>@count</td>
+                        <td>@item.a_name</td>
+                        @*<td>@item.ln_name</td>*@
+                        <td>@item.a_email</td>
+                        <td>@item.a_phno</td>
+                        @*<td>@item.address</td>*@
+
+                        <td>
+                            <input type="button" id="btnShowAdmin_@item.a_id" class="btn btn-danger" value="Edit" />
+
+                            <script type="text/javascript">
+                                    $(function () {
+                                        $("#btnShowAdmin_@item.a_id").click(function () {
+                                            $('#EditModal_@item.a_id').modal('show');
+                                        });
+                                    });
+                            </script>
+
+                            <div class="modal fade" id="EditModal_@item.a_id" tabindex="-1" role="dialog" aria-labelledby="ModalTitle"
+                                 aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+
+                                            <h4 class="modal-title" id="ModalTitle">
+                                                Edit Profile
+                                            </h4><button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                &times;
+                                            </button>
+
+                                        </div>
+                                        <form action="/Admin/Edit_Profile" method="post" enctype="multipart/form-data">
+                                            <div class="modal-body">
+
+                                                <input type="hidden" value="@item.a_id" name="Id" />
+
+                                                <label for="Name">Name</label>
+                                                <input type="text" class="form-control" id="Name" placeholder="" required="" name="Name" value="@item.a_name">
+
+
+                                                @*<label for="lastName">Last name</label>
+                                                    <input type="text" class="form-control" id="lastName" placeholder="" required="" name="ln" value="@item.ln_name" readonly>*@
+
+
+                                                <label for="Email">Email</label>
+                                                <input type="Email" class="form-control" id="Email" placeholder="" name="Email" value="@item.a_email">
+
+                                                <label for="Phone No">Phone No</label>
+                                                <input type="text" class="form-control" id="phone No" placeholder="Enter Number" required="" name="phno" maxlength="10" value="@item.a_phno">
+
+                                                @*<label for="address">Address</label>
+                                                    <textarea class="form-control" name="address" placeholder="Enter Address.." value="@item.address"></textarea>*@
+                                            </div>
+                                            <div class="modal-footer">
+                                                <input type="submit" value="Yes" class="btn btn-lg btn-success" />
+                                                <button type="button" class="btn btn-lg btn-default" data-dismiss="modal">
+                                                    No
+                                                </button>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    count++;
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+
+
+

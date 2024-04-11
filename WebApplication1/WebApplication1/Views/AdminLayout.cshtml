@@ -1,0 +1,482 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Modernize Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design" />
+    <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <!-- //Meta Tags -->
+    <!-- Style-sheets -->
+    <!-- Bootstrap Css -->
+    <link href="/Content/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- Bootstrap Css -->
+    <!-- Bars Css -->
+    <link rel="stylesheet" href="/Content/css/bar.css">
+    <!--// Bars Css -->
+    <!-- Calender Css -->
+    <link rel="stylesheet" type="text/css" href="/Content/css/pignose.calender.css" />
+    <!--// Calender Css -->
+    <!-- Common Css -->
+    <link href="/Content/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <!--// Common Css -->
+    <!-- Nav Css -->
+    <link rel="stylesheet" href="/Content/css/style4.css">
+    <!--// Nav Css -->
+    <!-- Fontawesome Css -->
+    <link href="/Content/css/fontawesome-all.css" rel="stylesheet">
+    <!--// Fontawesome Css -->
+    <!--// Style-sheets -->
+    <!--web-fonts-->
+    <link href="//fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <style>
+        .nav-item:hover {
+            background-color: #433c3c;
+            border-inline: 0.5px solid white;
+            border-radius: 5px;
+        }
+        .nav-link{
+            padding-top:5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="se-pre-con"></div>
+    <div class="wrapper">
+        <!-- Sidebar Holder -->
+        <nav id="sidebar" style="background-color:black">
+            <div class="sidebar-header">
+                <h1>
+                    @*<a href="index.html">Admin</a>*@
+                    <a href="@Url.Action("Dashbord","Admin")">Admin</a>
+
+                </h1>
+                <span style="font-size:initial">Admin</span>
+                @*<span>V-Pass</span>*@
+            </div>
+            <div class="profile-bg"></div>
+            <ul class="list-unstyled components">
+                <li class="active">
+                    <a href="@Url.Action("Dashboard","Admin")">
+                        <i class="fas fa-th-large"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" style="background-color:black">
+                        <i class="fas fa-laptop" style="background-color:black"></i>
+                        Manage Security Guard
+                        <i class="fas fa-angle-down fa-pull-right"></i>
+                    </a>
+                    <ul class="collapse list-unstyled" style="background-color:black" id="homeSubmenu">
+                        <li>
+                            <a style="background-color:black" href="@Url.Action("Addsecurityg","Admin")">Add</a>
+                        </li>
+                        
+                        <li>
+                            <a style="background-color:black" href="@Url.Action("Viewsecurity","Admin")">View</a>
+                        </li>
+                       
+
+                    </ul>
+
+                </li>
+                <li>
+                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" style="background-color:black">
+                        <i class="fas fa-laptop" style="background-color:black"></i>
+                        Manage Staff
+                        <i class="fas fa-angle-down fa-pull-right"></i>
+                    </a>
+                    <ul class="collapse list-unstyled" style="background-color:black" id="homeSubmenu1">
+                        <li>
+                            <a style="background-color:black" href="@Url.Action("Addstaff","Admin")">Add</a>
+                        </li>
+
+                        <li>
+                            <a style="background-color:black" href="@Url.Action("Viewstaff","Admin")">View</a>
+                        </li>
+
+
+                        <!--<li>
+                            <a href="staff_tables.html">View</a>
+                        </li>-->
+                    </ul>
+                </li>
+                <li>
+                    <a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false" style="background-color:black">
+                        <i class="fas fa-laptop" style="background-color:black"></i>
+                        Manage Visitor
+                        <i class="fas fa-angle-down fa-pull-right"></i>
+                    </a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu2" style="background-color:black">
+                        <li>
+                            <a style="background-color:black" href="@Url.Action("Viewvisitor","Admin")">View</a>
+                        </li>
+                        <li>
+                            <a style="background-color:black" href="@Url.Action("currentVadmin","Admin")">current Visitor</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#homeSubmenu3" data-toggle="collapse" aria-expanded="false" style="background-color:black">
+                        <i class="fas fa-laptop" style="background-color:black"></i>
+                        Report
+                        <i class="fas fa-angle-down fa-pull-right"></i>
+                    </a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu3" style="background-color:black">
+                        <li>
+                            <a style="background-color:black" href="@Url.Action("generateReport","Admin")">Generate Report</a>
+                        </li>
+                        
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        
+        <div id="content">
+            <!-- top-bar -->
+            <nav class="navbar navbar-default mb-xl-5 mb-4" style="background-color:black">
+                <div class="container-fluid">
+
+                    <div class="navbar-header">
+                        <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn" style="background-color:transparent">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                    <!-- Search-from -->
+                    @*<form action="#" method="post" class="form-inline search-form">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" required="">
+                        <button class="btn btn-style my-2 my-sm-0" type="submit">Search</button>
+                    </form>*@
+                    <!--// Search-from -->
+                <ul class="top-icons-agileits-w3layouts float-right" style="display:flex; position:relative; display:inline-flex;font-family:serif">
+
+
+                    <li class="nav-item" style="">
+                        <a class="nav-link" href="#About" style="color:#c2baba; ">About Us</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#Contact" style="color:#c2baba">Contact</a>
+                    </li>
+
+                    <li class="nav-item" style="display:flex; position:relative;">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true"
+                           aria-expanded="false">
+                            <i class="far fa-user" style="color:white"></i>
+
+                        </a>
+
+                        <div class="dropdown-menu drop-3">
+                            <div class="profile d-flex mr-o">
+                                <div class="profile-l align-self-center">
+                                    <img src="../content/images/user.png" class="img-fluid mb-3" alt="Responsive image">
+                                </div>
+                                <div class="profile-r align-self-center">
+                                    <h3 class="sub-title-w3-agileits">@Session["a_name"].ToString()</h3>
+                                    <a href="#">@Session["a_email"].ToString()</a>
+                                </div>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <a href="@Url.Action("EditProfile","Admin")">Edit profile</a>
+
+                            <div class="dropdown-divider"></div>
+                            <a href="@Url.Action("AdminProfile","Admin")">Change Password</a>
+
+                            @*<ul class="collapse list-unstyled" id="homeSubmenu">
+                </ul>*@
+
+                            <div class="dropdown-divider"></div>
+                            <a @*class="dropdown-item"*@ href="@Url.Action("LogOut","Admin")">Logout</a>
+                        </div>
+                    </li>
+                </ul>
+                </div>
+            </nav>
+            <div>
+                @RenderBody()
+            </div>
+
+            <div class="copyright-w3layouts py-xl-3 py-2 mt-xl-5 mt-4 text-center">
+                <p>Developed by : Sumit Rawal</p>
+            </div>
+            <!--// Copyright -->
+        </div>
+    </div>
+    
+
+    <!-- Required common Js -->
+    <script src='/Content/js/jquery-2.2.3.min.js'></script>
+    <!-- //Required common Js -->
+    <!-- loading-gif Js -->
+    <script src="/Content/js/modernizr.js"></script>
+    <script>
+        //paste this code under head tag or in a seperate js file.
+        // Wait for window load
+        $(window).load(function () {
+            // Animate loader off screen
+            $(".se-pre-con").fadeOut("slow");;
+        });
+    </script>
+    <!--// loading-gif Js -->
+    <!-- Sidebar-nav Js -->
+    <script>
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+    </script>
+    <!--// Sidebar-nav Js -->
+    <!-- Graph -->
+    <script src="/Content/js/SimpleChart.js"></script>
+    <script>
+        var graphdata4 = {
+            linecolor: "Random",
+            title: "Thursday",
+            values: [{
+                X: "6",
+                Y: 300.00
+            },
+            {
+                X: "7",
+                Y: 101.98
+            },
+            {
+                X: "8",
+                Y: 140.00
+            },
+            {
+                X: "9",
+                Y: 340.00
+            },
+            {
+                X: "10",
+                Y: 470.25
+            },
+            {
+                X: "11",
+                Y: 180.56
+            },
+            {
+                X: "12",
+                Y: 680.57
+            },
+            {
+                X: "13",
+                Y: 740.00
+            },
+            {
+                X: "14",
+                Y: 800.89
+            },
+            {
+                X: "15",
+                Y: 420.57
+            },
+            {
+                X: "16",
+                Y: 980.24
+            },
+            {
+                X: "17",
+                Y: 1080.00
+            },
+            {
+                X: "18",
+                Y: 140.24
+            },
+            {
+                X: "19",
+                Y: 140.58
+            },
+            {
+                X: "20",
+                Y: 110.54
+            },
+            {
+                X: "21",
+                Y: 480.00
+            },
+            {
+                X: "22",
+                Y: 580.00
+            },
+            {
+                X: "23",
+                Y: 340.89
+            },
+            {
+                X: "0",
+                Y: 100.26
+            },
+            {
+                X: "1",
+                Y: 1480.89
+            },
+            {
+                X: "2",
+                Y: 1380.87
+            },
+            {
+                X: "3",
+                Y: 1640.00
+            },
+            {
+                X: "4",
+                Y: 1700.00
+            }
+            ]
+        };
+        $(function () {
+            $("#Hybridgraph").SimpleChart({
+                ChartType: "Hybrid",
+                toolwidth: "50",
+                toolheight: "25",
+                axiscolor: "#E6E6E6",
+                textcolor: "#6E6E6E",
+                showlegends: false,
+                data: [graphdata4],
+                legendsize: "140",
+                legendposition: 'bottom',
+                xaxislabel: 'Hours',
+                title: 'Weekly Profit',
+                yaxislabel: 'Profit in $'
+            });
+        });
+    </script>
+    <!--// Graph -->
+    <!-- Bar-chart -->
+    <script src="/Content/js/rumcaJS.js"></script>
+    <script src="/Content/js/example.js"></script>
+    <!--// Bar-chart -->
+    <!-- Calender -->
+    <script src="/Content/js/moment.min.js"></script>
+    <script src="/Content/js/pignose.calender.js"></script>
+    <script>
+        //<![CDATA[
+        $(function () {
+            $('.calender').pignoseCalender({
+                select: function (date, obj) {
+                    obj.calender.parent().next().show().text('You selected ' +
+                        (date[0] === null ? 'null' : date[0].format('YYYY-MM-DD')) +
+                        '.');
+                }
+            });
+
+            $('.multi-select-calender').pignoseCalender({
+                multiple: true,
+                select: function (date, obj) {
+                    obj.calender.parent().next().show().text('You selected ' +
+                        (date[0] === null ? 'null' : date[0].format('YYYY-MM-DD')) +
+                        '~' +
+                        (date[1] === null ? 'null' : date[1].format('YYYY-MM-DD')) +
+                        '.');
+                }
+            });
+        });
+        //]]>
+    </script>
+    <!--// Calender -->
+    <!-- profile-widget-dropdown js-->
+    <script src="/Content/js/script.js"></script>
+    <!--// profile-widget-dropdown js-->
+    <!-- Count-down -->
+    <script src="/Content/js/simplyCountdown.js"></script>
+    <link href="/Content/css/simplyCountdown.css" rel='stylesheet' type='text/css' />
+    <script>
+        var d = new Date();
+        simplyCountdown('simply-countdown-custom', {
+            year: d.getFullYear(),
+            month: d.getMonth() + 2,
+            day: 25
+        });
+    </script>
+    <!--// Count-down -->
+    <!-- pie-chart -->
+    <script src='/Content/js/amcharts.js'></script>
+    <script>
+        var chart;
+        var legend;
+
+        var chartData = [{
+            country: "Lithuania",
+            value: 260
+        },
+        {
+            country: "Ireland",
+            value: 201
+        },
+        {
+            country: "Germany",
+            value: 65
+        },
+        {
+            country: "Australia",
+            value: 39
+        },
+        {
+            country: "UK",
+            value: 19
+        },
+        {
+            country: "Latvia",
+            value: 10
+        }
+        ];
+
+        AmCharts.ready(function () {
+            // PIE CHART
+            chart = new AmCharts.AmPieChart();
+            chart.dataProvider = chartData;
+            chart.titleField = "country";
+            chart.valueField = "value";
+            chart.outlineColor = "";
+            chart.outlineAlpha = 0.8;
+            chart.outlineThickness = 2;
+            // this makes the chart 3D
+            chart.depth3D = 20;
+            chart.angle = 30;
+
+            // WRITE
+            chart.write("chartdiv");
+        });
+    </script>
+    <!--// pie-chart -->
+    <!-- dropdown nav -->
+    <script>
+        $(document).ready(function () {
+            $(".dropdown").hover(
+                function () {
+                    $('.dropdown-menu', this).stop(true, true).slideDown("fast");
+                    $(this).toggleClass('open');
+                },
+                function () {
+                    $('.dropdown-menu', this).stop(true, true).slideUp("fast");
+                    $(this).toggleClass('open');
+                }
+            );
+        });
+    </script>
+    <!-- //dropdown nav -->
+    <!-- Js for bootstrap working-->
+    <script src="/Content/js/bootstrap.min.js"></script>
+    <!-- //Js for bootstrap working -->
+
+</body>
+
+</html>
+

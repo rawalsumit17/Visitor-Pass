@@ -1,0 +1,173 @@
+﻿@model WebApplication1.Models.visitor
+
+@{
+    ViewBag.Title = "generateReport";
+    Layout = "~/Views/AdminLayout.cshtml";
+}
+
+
+
+ 
+
+
+<html>
+<head>
+    <link rel="stylesheet" href="~/content/css/GenerateReport.css" type="text/css" />
+    <script type="text/javascript" src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js'></script>
+</head>
+<body>
+    <section class="tables-section" style=" background-color: lightgray;">
+        @*<h3 style="display:flex;justify-content:center; font-weight:bolder;">Visitor Report</h3>*@
+        @*<div class="row" >
+            <div class="col"style="display:flex;justify-content:right;">
+                <button class="btn btn-primary" value="Print" onclick="printReport()" id="btn1">Print</button>
+            </div>
+
+        </div>*@
+        <form method="post" action="/Admin/generateReport">
+            <div class="row">
+                <div class="col-md-3">
+                    <label>Start Date</label>
+                    <input type="date" class="form-control" name="start_date" required="" id="start_date" />
+                </div>
+
+                <div class="col-md-3">
+                    <label>End Date</label>
+                    <input type="date" class="form-control" name="end_date" required="" onchange="datecheck()" id="end_date" />
+                </div>
+
+                <div class="col-md-4">
+                    <button class="btn btn-primary" style="margin-top:25px;" type="submit" name="submit" id="datesub">show</button>
+
+                </div>
+
+            </div>
+        </form>
+        
+        <div class="row">
+            <div class="col" style="display:flex;justify-content:right;background-color:transparent;padding-left:0px;">
+                <button class="btn btn-primary" value="Print" onclick="printReport()" id="btn1">Print</button>
+            </div>
+        </div>
+        <br />
+
+            <div class="contain" style=" background-color: lightgray;" id="Reportpdf">
+                <div class="row">
+                    <div class="col" style="background-color:burlywood">
+                        <h3 style="display:flex;justify-content:center; font-family:'Times New Roman', Times, serif;">Visitor Report</h3>
+                    </div>
+                </div>
+
+                <br />
+
+
+
+
+                <div class="table-responsive" style="width:stretch">
+                    <table class="table" style="position:page">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">First</th>
+                                <th scope="col">Last</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Phone No</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">In-Time</th>
+                                <th scope="col">Out-Time</th>
+                                <th scope="col">Address</th>
+
+                                <th scope="col">Visitor Photo</th>
+                            </tr>
+                        </thead>
+                        @{ int count = 1;}
+
+                        @foreach (var item in Model.visitor_details)
+                        {
+
+                            <tr>
+                                <td>@count</td>
+                                <td>@item.fn_name</td>
+                                <td>@item.ln_name</td>
+                                <td>@item.v_email</td>
+                                <td>@item.v_phno</td>
+                                <td>@item.v_date</td>
+                                <td>@item.v_intime</td>
+                                <td>@item.v_outtime</td>
+                                <td>@item.v_address</td>
+
+                                <td><img src="@Url.Content(item.v_photo)" height="90" width="90" /></td>
+
+
+
+                            </tr>
+                            count++;
+                        }
+
+                    </table>
+                </div>
+            </div>
+
+    </section>
+        
+</body>
+</html>
+
+@if (TempData["msg2"] != null)
+{
+    <script type="text/javascript">
+        
+        window.location.href = "@Url.Action("generateReport","Admin")";
+
+    </script>
+
+
+
+}
+
+<script>
+    function datecheck() {
+        var sdate = document.getElementById("start_date").value;
+        var edate = document.getElementById("end_date").value;
+
+
+        if (edate < sdate) {
+
+            alert("Select Proper Dates");
+            document.getElementById("datesub").disabled = true;
+        }
+        else {
+
+
+
+            document.getElementById("datesub").disabled = false;
+        }
+
+
+    }
+
+</script>
+
+<script>
+    function printReport() {
+        //popupWin.document.write(`<html><head><link href="/content/css/print.css" rel="stylesheet" type = "text/css"></head><body onload = "window.print()">`+ document.getElementById("container").innerHTML + `</body></html>`);
+        var divToPrint = document.getElementsByClassName('contain')[0];
+        //var divToPrint = document.body;
+        var popupWin = window.open('', '_blank', 'width=1400,height=800,location=no,left=200px');
+        popupWin.document.open();
+        //popupWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '</html>');
+        popupWin.document.write('<html> <head> <link rel="stylesheet" href="~/content/css/GenerateReport.css" type="text/css"/></head> <body onload="window.print()">' + divToPrint.innerHTML + '</body></html>');
+
+
+        popupWin.document.close();
+
+
+
+    }
+
+       
+
+    
+</script>
+
+

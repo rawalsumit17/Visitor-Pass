@@ -1,0 +1,117 @@
+﻿
+@{
+    ViewBag.Title = "generateslip";
+    Layout = "~/Views/sgLayoutPage1.cshtml";
+}
+
+<br />
+<br />
+
+
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/content/css/print.css" type="text/css" />
+    <link rel="stylesheet" href="~/content/css/mediaPrint.css" type="text/css" media="print" />
+</head>
+<body>
+    <div class="container" id="visitorpdf">
+        <h2 class="card-title">Visitor Slip</h2>
+
+        <div id="contentToPrint">
+            @*<div class="row">*@
+
+            <div class="img-container">
+                @foreach (var item in Model.visitor_details)
+                {
+                    <img src="@Url.Content(item.v_photo)" class="img-photo" alt="Visitor ID Proof" />
+                }
+            </div>
+
+            <div class="info-group">
+                @foreach (var item in Model.visitor_details)
+                {
+
+                    <div class="info-row">
+                        <label id="name" for="inputText"><strong> <a id="value">@item.fn_name @item.ln_name</a> </strong></label>
+                    </div>
+
+                    <div class="info-row">
+                        <label for="inputNumber"><strong>Contact No: </strong></label>
+                        <a>@item.v_phno</a>
+                    </div>
+
+                    <div class="info-row">
+                        <label for="inputNumber"><strong>Email Id : </strong></label>
+                        <a>@item.v_email</a>
+                    </div>
+                    <div class="info-row">
+                        <label for="inputNumber"><strong>Address: </strong></label>
+                        <a>@item.v_address</a>
+                    </div>
+
+                    <div class="info-row">
+                        <label for="text"><strong>Time: </strong></label>
+                        <a>@item.v_intime</a>
+                    </div>
+
+                    <div class="info-row">
+                        <label for="text"><strong>Date: </strong></label>
+                        <a>@item.v_date</a>
+                    </div>
+                    
+                     
+                }
+            </div>
+        </div>
+    </div>
+    <div class="Slip">
+        <button class="btn" value="Print" onclick="printSlip()" id="btn1">Print</button>
+        <button class="btn" id="btnExport" value="Download" onclick="Export()">Download</button>
+    </div>
+</body>
+</html>
+
+
+<script>
+    function printSlip() {
+        //popupWin.document.write(`<html><head><link href="/content/css/print.css" rel="stylesheet" type = "text/css"></head><body onload = "window.print()">`+ document.getElementById("container").innerHTML + `</body></html>`);
+        var divToPrint = document.getElementsByClassName('container')[0];
+        //var divToPrint = document.body;
+        var popupWin = window.open('', '_blank', 'width=800,height=800,location=no,left=200px');
+        popupWin.document.open();
+        //popupWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '</html>');
+        popupWin.document.write('<html><head><link href="/content/css/print.css" rel="stylesheet" type="text/css"><link rel="stylesheet" href="~/content/css/mediaPrint.css" type="text/css" /></head><body onload="window.print()">' + divToPrint.innerHTML + '</body></html>');
+
+
+        popupWin.document.close();
+
+    
+    }
+</script>
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+<script type="text/javascript">
+    function Export() {
+        var d = new Date().toISOString();
+
+        html2canvas(document.getElementById('visitorpdf'), {
+            onrendered: function (canvas) {
+                var data = canvas.toDataURL();
+                var docDefinition = {
+                    content: [{
+                        image: data,
+                        width: 500
+                    }]
+                };
+                pdfMake.createPdf(docDefinition).download("Slip_" + d + ".pdf");
+
+
+            }
+        });
+    }
+
+</script>
+

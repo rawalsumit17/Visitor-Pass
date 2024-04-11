@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "SendOtp";
+    Layout = "~/Views/sgLayoutPage1.cshtml";
+}
+
+<html>
+
+<head>
+    <link rel="stylesheet" href="~/content/css/otp.css" />
+</head>
+
+<body>
+    <h5>Verification</h5>
+    <a class="nav-item"><i class="fa-solid fa-mobile"></i></a>
+    
+    <h6>You Will get a OTP via E-mail...!</h6>
+    <div class="container">
+        <h2>Otp Verification</h2>
+
+        <form action="@Url.Action("SendOtp","sg")" method="post">
+            <div class="row-outer">
+                <div class="row">
+                    <input type="text" name="v_id" value="@Session["ot"] " hidden />
+                    <input type="text" name="otp" value="@Session["otp"]" hidden />
+                    <input type="text" name="email" value="@TempData["email"]" hidden />
+                    <input class="form-control" type="text" placeholder="Enter OTP" required="" name="newotp" onkeypress='return event.charCode >= 48 && event.charCode <= 57' />
+
+                </div>
+            </div>
+
+            <div class="row">
+                <button type="submit" class="btn1" name="submit">Verify OTP</button>
+            </div>
+        </form>
+
+    </div>
+
+
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <script type="text/javascript">
+        alert('@TempData["ErrorMessage"]');
+        window.location.href = "@Url.Action("SendOtp","sg")";
+
+        </script>
+    }
+
+
+</body>
+
+</html>
+
+ 

@@ -1,0 +1,189 @@
+﻿@model WebApplication1.Models.visitor
+@using System.Globalization
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/AdminLayout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.48.0/apexcharts.min.js" integrity="sha512-wqcdhB5VcHuNzKcjnxN9wI5tB3nNorVX7Zz9NtKBxmofNskRC29uaQDnv71I/zhCDLZsNrg75oG8cJHuBvKWGw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<style>
+    body {
+        background-color: lightgray;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+
+    .bg-page {
+        background-color: rgba(0, 0, 0, 0.6);
+    }
+</style>
+<div class="container-fluid">
+    <div class="row">
+        <div class="outer-w3-agile col-xl" style="padding:0px; background-color:transparent;">
+            <div class="stat-grid p-3 d-flex align-items-center justify-content-between bg-primary">
+                <div class="s-l">
+                    <h5>Total visitors</h5>
+
+                </div>
+                <div class="s-r">
+                    <h6>
+                        @TempData["Msg"]
+
+                    </h6>
+                </div>
+            </div>
+            <br />
+            <div class="stat-grid p-3 d-flex align-items-center justify-content-between bg-success">
+                <div class="s-l">
+                    <h5>Total Current visitors</h5>
+                    <p class="paragraph-agileits-w3layouts text-white"></p>
+                </div>
+                <div class="s-r">
+                    <h6>
+                        @TempData["Msg1"]
+
+                    </h6>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<br />
+<br />
+
+
+
+@*<div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col" style="display: flex; display: flex; align-items: center; position:static; top: 50%;">
+                    <h2 style="width:auto; padding: 30px">Daily Visitor Count</h2>
+
+                    <ul class="list-unstyled components" style=" padding: 15px;;">
+                        <li>
+                            <a href="#graphSelect" data-toggle="collapse" aria-expanded="false" style=" color: black; background-color: rgb(40 167 0 / 0.60);; display: flex; justify-content: center; align-items: center; border: 2px solid rgba(0, 0, 0, 0.6)">
+
+                                Select Graph
+                                <i class="fas fa-angle-down fa-pull-right" style="display:flex;justify-content:center;align-items:center;"></i>
+                            </a>
+                            <ul class="list-unstyled collapse" id="graphSelect" style="border:2px solid black;padding-left:0px;background-color:rgb(56 148 247 / 0.70)">
+                                <li>
+                                    <a class="year" style="background-color: transparent; padding-left: 0px; color: black; display: flex; width: inherit; border-bottom: 1px solid rgba(0, 0, 0, 0.6)" href="@Url.Action("Dashboard", "Admin", new { graphType = "month", year = DateTime.Now.Year})">
+                                    Year
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="year" style="background-color: transparent; color: black; border-top: 1px solid rgba(0, 0, 0, 0.6); width: inherit; display: flex; " href="@Url.Action("Dashboard", "Admin", new { graphType = "month", year = 2024, month = 4 })">
+                                    Select month
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="chart"></div>
+            </div>
+        </div>
+    </div>*@
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col" style="display: flex; align-items: center; position:static; top: 50%;">
+                <h2 style="width:auto; padding: 30px">Daily Visitor Count</h2>
+
+                <!-- Year option -->
+                <a href="@Url.Action("Dashboard", "Admin", new { graphType = "year", year = DateTime.Now.Year })">Show Yearly Graph</a>
+
+                <!-- Month option -->
+                <a href="#graphSelect" data-toggle="collapse" aria-expanded="false" style=" color: black; background-color: rgb(40 167 0 / 0.60);; display: flex; justify-content: center; align-items: center; border: 2px solid rgba(0, 0, 0, 0.6)">
+                    Select Graph
+                    <i class="fas fa-angle-down fa-pull-right" style="display:flex;justify-content:center;align-items:center;"></i>
+                </a>
+                <ul class="list-unstyled collapse" id="graphSelect" style="border:2px solid black;padding-left:0px;background-color:rgb(56 148 247 / 0.70)">
+                    @for (int i = 1; i <= 12; i++)
+                    {
+                        <li>
+                            <a href="@Url.Action("Dashboard", "Admin", new { graphType = "month", year = DateTime.Now.Year, month = i })" style="background-color: transparent; padding-left: 0px; color: black; display: flex; width: inherit; border-bottom: 1px solid rgba(0, 0, 0, 0.6)">
+                                @CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(i)
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div id="chart"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var dates = @Html.Raw(Json.Encode(TempData["Dates"]));
+    var counts = @Html.Raw(Json.Encode(TempData["Counts"]));
+
+    if (dates.length !== counts.length) {
+        console.error("Dates and counts arrays have different lengths.");
+    }
+
+    var dataset = [];
+    for (var i = 0; i < dates.length; i++) {
+        dataset.push(counts[i]);
+    }
+
+    var options = {
+        series: [{
+            name: 'Daily Visitor Count',
+            data: dataset
+        }],
+        chart: {
+            type: 'bar',
+            height: 350
+        },
+        plotOptions: {
+            bar: {
+                horizontal: false,
+                columnWidth: '55%',
+                endingShape: 'rounded'
+            },
+        },
+        dataLabels: {
+            enabled: false
+        },
+        stroke: {
+            show: true,
+            width: 2,
+            colors: ['transparent']
+        },
+        xaxis: {
+            categories: dates
+        },
+        yaxis: {
+            title: {
+                text: 'Daily Visitor Count'
+            },
+            forceNiceScale: true,
+            labels: {
+                formatter: function (value) {
+                    return Math.round(value);
+                }
+            }
+        },
+        fill: {
+            opacity: 1
+        },
+        tooltip: {
+            enabled: false
+        }
+    };
+
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+    chart.render();
+</script>
+
+
+ 

@@ -1,0 +1,90 @@
+﻿@model WebApplication1.Models.visitor
+
+@{
+    ViewBag.Title = "currentVadmin";
+    Layout = "~/Views/AdminLayout.cshtml";
+}
+
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<style>
+    body {
+        background-color:lightgray;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+
+    .bg-page {
+        background-color: rgba(0, 0, 0, 0.6); /* Adjust the background color opacity */
+    }
+</style>
+
+
+
+ <!--// main-heading -->
+<!-- Tables content -->
+<section class="tables-section">
+    <!-- table1 -->
+    <div class="outer-w3-agile mt-3" style="background-color: lightgray; ">
+        <h4 class="tittle-w3-agileits mb-4">Current Visitors</h4>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Phone No</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">In-Time</th>
+                        @*<th scope="col">Out-Time</th>*@
+                        <th scope="col">Address</th>
+                        <th scope="col">Visitor Photo</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    @{ int count = 1;}
+
+                    @foreach (var item in Model.visitor_details)
+                    {
+
+                        <tr>
+                            <td>@count</td>
+                            <td>@item.fn_name</td>
+                            <td>@item.ln_name</td>
+                            <td>@item.v_email</td>
+                            <td>@item.v_phno</td>
+                            <td>@item.v_date</td>
+                            <td>@item.v_intime</td>
+
+                            <td>@item.v_address</td>
+
+                            <td><img src="@Url.Content(item.v_photo)" height="90" width="90" /></td>
+                        </tr>
+                        count++;
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+@if (TempData["msg"] != null)
+{
+    <script type="text/javascript">
+        alert('@TempData["msg"]');
+        window.location.href = "@Url.Action("CurrentVisitor","admin")";
+
+    </script>
+}
+
+
+
+
+
+
+

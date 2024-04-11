@@ -1,0 +1,13 @@
+﻿@media print {
+    #btn1 {
+        display: none;
+    }
+
+    #btnExport {
+        display: none;
+    }
+
+
+
+     
+}

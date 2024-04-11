@@ -1,0 +1,11 @@
+﻿body {
+    background-color: lightgray;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.bg-page {
+    background-color: rgba(0, 0, 0, 0.6); /* Adjust the background color opacity */
+}

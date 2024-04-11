@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "Sdashbord";
+    Layout = "~/Views/sgLayoutPage1.cshtml";
+}
+
+
+<!--// top-bar -->
+@*<div class="container-fluid">
+    <div class="row">*@
+        <!-- Stats -->
+        <div class="outer-w3-agile col-xl">
+            <div class="stat-grid p-3 d-flex align-items-center justify-content-between bg-primary">
+                <div class="s-l">
+                    <h5>Total visitors</h5>
+                    <p class="paragraph-agileits-w3layouts text-white"></p>
+                </div>
+                <div class="s-r">
+                    <h6>
+                        @TempData["Msg"]
+                       
+                    </h6>
+                </div>
+            </div>
+            <br />
+            <div class="stat-grid p-3 d-flex align-items-center justify-content-between bg-success">
+                <div class="s-l">
+                    <h5>Total Current visitors</h5>
+                    <p class="paragraph-agileits-w3layouts text-white"></p>
+                </div>
+                <div class="s-r">
+                    <h6>
+                        @TempData["Msg1"]
+                       
+                    </h6>
+                </div>
+            </div>
+
+        </div>
+

@@ -1,0 +1,67 @@
+﻿@model WebApplication1.Models.visitor
+@{
+    ViewBag.Title = "searchname";
+    Layout = "~/Views/AdminLayout.cshtml";
+}
+
+<script type="text/javascript" src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js'></script>
+
+
+@*<h2 class="main-title-w3layouts mb-2 text-center">Tables</h2>*@
+<!--// main-heading -->
+<!-- Tables content -->
+
+
+<section class="tables-section">
+    <!-- table1 -->
+    <div class="outer-w3-agile mt-3">
+        <h4 class="tittle-w3-agileits mb-4">Visitor Details</h4>
+
+
+
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone No</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">In-Time</th>
+                    <th scope="col">Out-Time</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Photo</th>
+
+
+                </tr>
+            </thead>
+            @{ int count = 1;}
+
+            @foreach (var item in Model.visitor_details)
+            {
+
+        <tr>
+            <td>@count</td>
+            <td>@item.fn_name</td>
+            <td>@item.ln_name</td>
+            <td>@item.v_email</td>
+            <td>@item.v_phno</td>
+            <td>@item.v_date</td>
+            <td>@item.v_intime</td>
+            <td>@item.v_outtime</td>
+            <td>@item.v_address</td>
+            <td><img src="@Url.Content(item.v_photo)" height="90" width="90" /></td>
+
+
+
+
+        </tr>
+                count++;
+            }
+
+        </table>
+    </div>
+</section>
+

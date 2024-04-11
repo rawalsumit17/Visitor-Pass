@@ -1,0 +1,130 @@
+ body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0; /* lighter background color */
+
+}
+
+.container {
+    max-width: 400px; /* reduced container width */
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff; /* white background */
+    border-radius: 8px; /* slightly reduced border radius */
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); /* softer shadow */
+    box-sizing: border-box;
+    display:flex;
+    flex-direction:column;
+}
+
+
+.card-title {
+    height:70px;
+    background-color: #151313; /* green title background */
+    color: #ffffff; /* white title text */
+  /* reduced padding */
+    border-top-left-radius: 8px;  
+    border-top-right-radius: 8px;
+    text-align: center;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin-bottom: 0px;
+}
+.contentToPrint
+{
+    box-sizing:content-box;
+    display:flex;
+    flex-direction:row;
+    align-content:center;
+    position:absolute;
+
+}
+
+
+
+.info-group {
+    flex: 1 1 calc(50% - 10px); /* Adjusted width for two columns with margin */
+    margin-right: 20px; /* Increased margin between groups */
+    margin-bottom: 20px; /*Increased margin bottom */
+    padding:5px;
+    border-bottom-left-radius:8px;
+    border-bottom-right-radius:8px;
+    background-color: #466964;
+    color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 1, 0, 0.1);
+}
+
+    .info-group:last-child {
+        margin-right: 0;
+    }
+
+    .info-group label {
+        font-weight: bold;
+        color: #555555; /* slightly darker text color */
+    }
+
+.info-row{
+    line-height:40px;
+}
+    .info-row #name {
+        display: flex;
+        justify-content: center;
+        margin-bottom:20px;
+         
+    }
+#value {
+    font: 16px Arial,sans-serif;
+    color: #ffffff;
+    font: bold 16px arial,verdana;
+    text-transform:uppercase;
+}
+
+
+.info-group label{
+    color:#1e1c1c;
+}
+
+.img-container {
+    flex: 0 0 100px; /* Adjusted width for the image container */
+    text-align: center;
+    /* Increased margin between image and info-group */
+    /* Increased margin bottom */
+    order: 1; /* Change order to move image to the top */
+    align-self: flex-start; /* Align image to the top */
+    background-color: #466964;
+    padding:20px;
+    padding-bottom:0px;
+    border:none;
+}
+
+.img-photo {
+    width: 100px; /* Set the width of the image */
+    height: 100px; /* Set the height of the image */
+    border-radius: 50%; /* Rounded corners to make it a square */
+    object-fit: cover; /* make the image round */
+    box-shadow: 9px -3px 11px 2px rgba(0, 0, 0, 0.1);
+     /* softer shadow */
+    border: 2.5px solid #151313;
+}
+
+.otp,
+.Slip {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.btn {
+    border-radius: 20px;
+    padding: 10px 20px;
+    background-color: #466964; /* green button background */
+    color: #ffffff; /* white button text */
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+    .btn:hover {
+        background-color: #1E1c1c; /* slightly darker green on hover */
+    }
